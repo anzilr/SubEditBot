@@ -1,6 +1,7 @@
 venv/*
 .vscode/*
 *.pyc
+.idea
 /config.env
 /subedit.session
 /subedit.session-journal
