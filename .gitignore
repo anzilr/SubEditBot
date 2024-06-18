@@ -1,0 +1,7 @@
+venv/*
+.vscode/*
+*.pyc
+/config.env
+/subedit.session
+/subedit.session-journal
+/logs.txt
