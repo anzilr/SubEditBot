@@ -13,6 +13,6 @@ def get_version() -> str:
 __python_version__ = f"{version_info[0]}.{version_info[1]}.{version_info[2]}"
 __version__ = get_version()
 __license__ = (
-    "[MIT](https://github.com/sanjit-sinha/TelegramBot-Boilerplate/blob/main/LICENSE)"
+    "[MIT](https://github.com/anzilr/SubEditBot/blob/master/LICENSE)"
 )
 __pyrogram_version__ = __pyro_version__
