@@ -19,7 +19,7 @@ START_BUTTON = [
     [
         InlineKeyboardButton(
             "🔭 Source",
-            url="https://github.com/sanjit-sinha/TelegramBot-Boilerplate",
+            url="https://github.com/anzilr/SubEditBot",
         )
     ],
 ]

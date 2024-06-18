@@ -52,7 +52,7 @@ ABOUT_CAPTION = f"""• Python version : {__python_version__}
 • pyrogram  version : {__pyro_version__}
 • License : {__license__}
 
-**Github Repo**: https://github.com/sanjit-sinha/TelegramBot-Boilerplate"""
+**Github Repo**: https://github.com/anzilr/SubEditBot"""
 
 
 START_CAPTION = """

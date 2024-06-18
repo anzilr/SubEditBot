@@ -44,7 +44,7 @@ python3 -m subedit
 ```
 
 ## Web App Integration
-SubEditBot includes a web app for advanced text formatting and color picking. Access it via the web app button in the bot interface.
+SubEditBot includes a web app for advanced text formatting and color picking. Access it via the Formatter button in the bot interface. Source [here](https://github.com/anzilr/TextFormatter)
 
 ## Contributing
 We welcome contributions! If you have suggestions for improvements or find any bugs, please open an issue or submit a pull request.
