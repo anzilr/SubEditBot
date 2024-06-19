@@ -28,7 +28,10 @@ async def callback_handler(client, query):
             filters.document, filters.user(query.from_user.id), timeout=300
         )
     except TimeoutError:
-        await client.send_message("Timeout! Start new session again.")
+        await client.send_message(
+            chat_id=query.from_user.id,
+            text="Timeout! Start new session again."
+        )
     else:
         if response:
             await srtHandler(client, response)
