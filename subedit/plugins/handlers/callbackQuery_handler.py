@@ -103,7 +103,7 @@ async def srtHandler(_, message):
         )
 
 
-@bot.on_callback_query(CallbackButtonDataFilter("EDIT_SUB_MENU"))
+@bot.on_callback_query(CallbackButtonDataFilter("MAIN_MENU"))
 async def editSub(_, query):
     sub_id = query.data.split("|")[1]
     await bot.send_message(

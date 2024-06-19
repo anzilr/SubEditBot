@@ -6,3 +6,4 @@ venv/*
 /subedit.session
 /subedit.session-journal
 /logs.txt
+.venv

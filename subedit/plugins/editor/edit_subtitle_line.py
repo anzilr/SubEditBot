@@ -1,6 +1,5 @@
 from subedit import bot
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, WebAppInfo
-from pyrogram import filters
 from subedit.helpers.Filters.custom_filters import CallbackButtonDataFilter
 from subedit.database.database import getLastIndexAndMessageID, updateLastMessageID
 from subedit.plugins.editor.sub_editor import fetchLine
@@ -38,6 +37,9 @@ async def editSubHandler(_, query):
                     InlineKeyboardButton(
                         "Merge",
                         callback_data=f"{'MERGE_LINE' if index > 1 else 'MERGE'}|{sub_id}|{index}",
+                    ),
+                    InlineKeyboardButton(
+                        "Menu", callback_data=f"MAIN_MENU|{sub_id}|{index}",
                     ),
                     InlineKeyboardButton(
                         "Split", callback_data=f"SPLIT_LINE|{sub_id}|{index}"

@@ -21,7 +21,7 @@ async def Editor(_, message: Message):
         edit_subID_button = []
         for ID in sub_ids:
             print(ID)
-            button_data = f"EDIT_SUB_MENU|{ID['id']}"
+            button_data = f"MAIN_MENU|{ID['id']}"
             print(button_data)
             edit_subID_button.append(
                 [InlineKeyboardButton(f"{ID['file_name']}", callback_data=button_data)],

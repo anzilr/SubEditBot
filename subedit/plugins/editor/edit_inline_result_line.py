@@ -43,6 +43,9 @@ async def editSingleLine(_, query):
                         callback_data=f"{'MERGE_LINE' if index > 1 else 'MERGE'}|{sub_id}|{index}",
                     ),
                     InlineKeyboardButton(
+                        "Menu", callback_data=f"MAIN_MENU|{sub_id}|{index}",
+                    ),
+                    InlineKeyboardButton(
                         "Split", callback_data=f"SPLIT_LINE|{sub_id}|{index}"
                     ),
                 ],

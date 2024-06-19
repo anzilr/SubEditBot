@@ -55,7 +55,7 @@ async def deleteSubtitleConfirm(_, query):
     else:
         edit_subID_button = []
         for ID in sub_ids:
-            button_data = f"EDIT_SUB_MENU|{ID['id']}"
+            button_data = f"MAIN_MENU|{ID['id']}"
             edit_subID_button.append(
                 [InlineKeyboardButton(f"{ID['file_name']}", callback_data=button_data)],
             )
@@ -93,7 +93,7 @@ async def cancelDeleteSub(_, query):
     else:
         edit_subID_button = []
         for ID in sub_ids:
-            button_data = f"EDIT_SUB_MENU|{ID['id']}"
+            button_data = f"MAIN_MENU|{ID['id']}"
             edit_subID_button.append(
                 [InlineKeyboardButton(f"{ID['file_name']}", callback_data=button_data)],
             )
