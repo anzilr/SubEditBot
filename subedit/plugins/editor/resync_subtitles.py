@@ -12,7 +12,7 @@ user_db = {}
 
 
 @bot.on_callback_query(CallbackButtonDataFilter("RESYNC_SUB"))
-async def resyncSubMenu(query):
+async def resyncSubMenu(_, query):
     message_id = query.message.id
     subtitle_id = query.data.split("|")[1]
     bot.edit_message_text(
@@ -46,7 +46,7 @@ async def resyncSubMenu(query):
 
 
 @bot.on_message(filters.reply)
-async def resyncSub(message):
+async def resyncSub(_, message):
     await bot.delete_messages(
         chat_id=message.from_user.id,
         message_ids=user_db[message.from_user.id]["message_id"],
