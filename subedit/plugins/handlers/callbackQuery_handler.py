@@ -115,7 +115,9 @@ async def editSub(_, query):
                     InlineKeyboardButton(
                         "Explore", switch_inline_query_current_chat=sub_id
                     ),
-                    InlineKeyboardButton("Edit", callback_data=f"EDIT_SUB|{sub_id}"),
+                    InlineKeyboardButton(
+                        "Edit", callback_data=f"EDIT_SUB|{sub_id}"
+                    ),
                 ],
                 [
                     InlineKeyboardButton(
@@ -125,6 +127,11 @@ async def editSub(_, query):
                         "Delete", callback_data=f"DELETE_SUB|{sub_id}"
                     ),
                 ],
+                [
+                    InlineKeyboardButton(
+                        "Re-sync", callback_data=f"RESYNC_SUB|{sub_id}"
+                    )
+                ]
             ]
         ),
     )
