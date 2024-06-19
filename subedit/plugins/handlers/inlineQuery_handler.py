@@ -40,11 +40,11 @@ async def exploreInline(client, inline_query):
                     [
                         [
                             InlineKeyboardButton(
-                                text="Edit Line",
+                                text="📝 Edit Line",
                                 callback_data=f"EDIT_LINE|{sub_id}|{index}",
                             ),
                             InlineKeyboardButton(
-                                text="Delete Line",
+                                text="🗑️ Delete Line",
                                 callback_data=f"DELETE_LINE|{sub_id}|{index}",
                             ),
                         ]

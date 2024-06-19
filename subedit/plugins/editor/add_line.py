@@ -30,7 +30,7 @@ async def addNewLine(_, query):
                 ],
                 [
                     InlineKeyboardButton(
-                        text="Cancel",
+                        text="❎ Cancel",
                         callback_data=f"CANCEL_ADD_LINE|{subtitle_id}|{index}",
                     )
                 ],

@@ -23,19 +23,19 @@ async def mergeLine(_, query):
             [
                 [
                     InlineKeyboardButton(
-                        text="Merge with previous",
+                        text="🔗 Merge with previous",
                         callback_data=f"MERGE_PREV_LINE|{subtitle_id}|{index}",
                     )
                 ],
                 [
                     InlineKeyboardButton(
-                        text="Merge with next",
+                        text="🔗 Merge with next",
                         callback_data=f"MERGE_NEXT_LINE|{subtitle_id}|{index}",
                     )
                 ],
                 [
                     InlineKeyboardButton(
-                        text="Cancel",
+                        text="❎ Cancel",
                         callback_data=f"CANCEL_MERGE_LINE|{subtitle_id}|{index}",
                     )
                 ],

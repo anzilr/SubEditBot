@@ -29,13 +29,13 @@ async def adjustTime(_, query):
             [
                 [
                     InlineKeyboardButton(
-                        text="Adjust Time",
+                        text="⏲️ Adjust Time",
                         callback_data=f"ADJUST_LINE_TIME|{subtitle_id}|{index}",
                     )
                 ],
                 [
                     InlineKeyboardButton(
-                        text="Cancel",
+                        text="❎ Cancel",
                         callback_data=f"CANCEL_TIME_ADJUST|{subtitle_id}|{index}",
                     )
                 ],
@@ -67,7 +67,7 @@ async def adjustLineTime(_, query):
             [
                 [
                     InlineKeyboardButton(
-                        text="Cancel",
+                        text="❎ Cancel",
                         callback_data=f"CANCEL_TIME_ADJUST|{subtitle_id}|{index}",
                     )
                 ]
@@ -109,46 +109,46 @@ async def inputNewTime(_, message):
             [
                 [
                     InlineKeyboardButton(
-                        "Edit Text", callback_data=f"EDT__TEXT|{subtitle_id}|{index}"
+                        "📝 Edit Text", callback_data=f"EDT__TEXT|{subtitle_id}|{index}"
                     )
                 ],
                 [
                     InlineKeyboardButton(
-                        "Merge",
+                        "🔗 Merge",
                         callback_data=f"{'MERGE_LINE' if index > 1 else 'MERGE'}|{subtitle_id}|{index}",
                     ),
                     InlineKeyboardButton(
-                        "Menu", callback_data=f"MAIN_MENU|{subtitle_id}|{index}",
+                        "💠 Menu", callback_data=f"MAIN_MENU|{subtitle_id}|{index}",
                     ),
                     InlineKeyboardButton(
-                        "Split", callback_data=f"SPLIT_LINE|{subtitle_id}|{index}"
+                        "✂️ Split", callback_data=f"SPLIT_LINE|{subtitle_id}|{index}"
                     ),
                 ],
                 [
                     InlineKeyboardButton(
-                        "Add Line", callback_data=f"ADD_NEW_LINE|{subtitle_id}|{index}"
+                        "➕ Add Line", callback_data=f"ADD_NEW_LINE|{subtitle_id}|{index}"
                     ),
                     InlineKeyboardButton(
-                        text="Formatter",
+                        text="🎨 Formatter",
                         web_app=WebAppInfo(
                             url="https://anzilr.github.io/TextFormatter/"
                         ),
                     ),
                     InlineKeyboardButton(
-                        "Adjust Time",
+                        "⏲️ Adjust Time",
                         callback_data=f"ADJUST_TIME_LINE|{subtitle_id}|{index}",
                     ),
                 ],
                 [
                     InlineKeyboardButton(
-                        "<< Prev",
+                        "⏪ Prev",
                         callback_data=f"{'PREV_LINE' if index > 1 else 'PREV'}|{subtitle_id}|{index - 1}",
                     ),
                     InlineKeyboardButton(
-                        "Delete", callback_data=f"DELETE_LINE|{subtitle_id}|{index}"
+                        "🗑️ Delete", callback_data=f"DELETE_LINE|{subtitle_id}|{index}"
                     ),
                     InlineKeyboardButton(
-                        "Next >>", callback_data=f"NEXT_LINE|{subtitle_id}|{index + 1}"
+                        "Next ⏩", callback_data=f"NEXT_LINE|{subtitle_id}|{index + 1}"
                     ),
                 ],
             ]

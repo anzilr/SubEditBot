@@ -23,13 +23,13 @@ async def splitLine(_, query):
             [
                 [
                     InlineKeyboardButton(
-                        text="Split the line",
+                        text="✂️ Split the line",
                         callback_data=f"SPLIT_THE_LINE|{subtitle_id}|{index}",
                     )
                 ],
                 [
                     InlineKeyboardButton(
-                        text="Cancel",
+                        text="❎ Cancel",
                         callback_data=f"CANCEL_SPLIT_LINE|{subtitle_id}|{index}",
                     )
                 ],

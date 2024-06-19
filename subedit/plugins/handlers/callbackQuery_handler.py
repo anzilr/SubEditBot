@@ -7,6 +7,7 @@ from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from subedit.helpers.srt_parser import srtParser
 from datetime import datetime, timezone
 from subedit import bot
+from subedit.plugins.handlers.message_handler import Editor
 import os
 import re
 from subedit.logging import LOGGER
@@ -19,7 +20,7 @@ async def callback_handler(client, query):
         chat_id=query.from_user.id,
         text="Send the SRT file to start new editing session",
         reply_markup=InlineKeyboardMarkup(
-            [[InlineKeyboardButton("Cancel", callback_data="CANCEL_NEW_PROJECT")]]
+            [[InlineKeyboardButton("❎ Cancel", callback_data="CANCEL_NEW_PROJECT")]]
         ),
     )
     try:
@@ -37,9 +38,7 @@ async def callback_handler(client, query):
 @bot.on_callback_query(CallbackDataFilter("CANCEL_NEW_PROJECT"))
 async def cancelProject(client, query):
     await client.listen.Cancel(filters.user(query.from_user.id))
-    await client.send_message(
-        chat_id=query.from_user.id, text="Editing session cancelled"
-    )
+    await Editor(query.from_user.id, query.message.id)
 
 
 async def srtHandler(_, message):
@@ -68,18 +67,18 @@ async def srtHandler(_, message):
                 [
                     [
                         InlineKeyboardButton(
-                            "Explore", switch_inline_query_current_chat=sub_id
+                            "🔭 Explore", switch_inline_query_current_chat=sub_id
                         ),
                         InlineKeyboardButton(
-                            "Edit", callback_data=f"EDIT_SUB|{sub_id}"
+                            "📝 Edit", callback_data=f"EDIT_SUB|{sub_id}"
                         ),
                     ],
                     [
                         InlineKeyboardButton(
-                            "Compile", callback_data=f"COMPILE_SUB|{sub_id}"
+                            "📦 Compile", callback_data=f"COMPILE_SUB|{sub_id}"
                         ),
                         InlineKeyboardButton(
-                            "Delete", callback_data=f"DELETE_SUB|{sub_id}"
+                            "🗑️ Delete", callback_data=f"DELETE_SUB|{sub_id}"
                         ),
                     ],
                 ]
@@ -113,25 +112,30 @@ async def editSub(_, query):
             [
                 [
                     InlineKeyboardButton(
-                        "Explore", switch_inline_query_current_chat=sub_id
+                        "🔭 Explore", switch_inline_query_current_chat=sub_id
                     ),
                     InlineKeyboardButton(
-                        "Edit", callback_data=f"EDIT_SUB|{sub_id}"
-                    ),
-                ],
-                [
-                    InlineKeyboardButton(
-                        "Compile", callback_data=f"COMPILE_SUB|{sub_id}"
-                    ),
-                    InlineKeyboardButton(
-                        "Delete", callback_data=f"DELETE_SUB|{sub_id}"
+                        "📝 Edit", callback_data=f"EDIT_SUB|{sub_id}"
                     ),
                 ],
                 [
                     InlineKeyboardButton(
-                        "Re-sync", callback_data=f"RESYNC_SUB|{sub_id}"
+                        "📦 Compile", callback_data=f"COMPILE_SUB|{sub_id}"
+                    ),
+                    InlineKeyboardButton(
+                        "🗑️ Delete", callback_data=f"DELETE_SUB|{sub_id}"
+                    ),
+                ],
+                [
+                    InlineKeyboardButton(
+                        "♻️ Re-sync", callback_data=f"RESYNC_SUB|{sub_id}"
                     )
                 ]
             ]
         ),
     )
+
+
+@bot.on_callback_query(CallbackButtonDataFilter("START_EDIT_MENU"))
+async def editSubMenu(_, query):
+    await Editor(query.from_user.id, query.message.id)

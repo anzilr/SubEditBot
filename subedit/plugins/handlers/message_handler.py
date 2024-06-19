@@ -9,12 +9,20 @@ edit_cmd_button = [
 
 
 @bot.on_message(filters.command(["edit"]))
-async def Editor(_, message: Message):
-    sub_ids = await getSubtitleID(message.from_user)
+async def editMenu(_, message):
+    user_id = message.from_user.id
+    message_id = message.id
+    await Editor(user_id, message_id)
+
+
+async def Editor(user_id, message_id):
+    sub_ids = await getSubtitleID(user_id)
     print(sub_ids)
     if not sub_ids:
-        await message.reply_text(
-            "You don't have any subtitles to edit. Start a new one by clicking below",
+        await bot.send_message(
+            chat_id=user_id,
+            text="You don't have any subtitles to edit. Start a new one by clicking below",
+            reply_to_message_id=message_id,
             reply_markup=InlineKeyboardMarkup(edit_cmd_button),
         )
     else:
@@ -29,7 +37,9 @@ async def Editor(_, message: Message):
         edit_subID_button.append(
             [InlineKeyboardButton("📖 Start New", callback_data="START_NEW_BUTTON")]
         )
-        await message.reply_text(
-            "Choose a subtitle to edit or start new",
+        await bot.send_message(
+            chat_id=user_id,
+            reply_to_message_id=message_id,
+            text="Choose a subtitle to edit or start new",
             reply_markup=InlineKeyboardMarkup(edit_subID_button),
         )

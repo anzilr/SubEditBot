@@ -13,10 +13,20 @@ from subedit.database import database
 
 START_BUTTON = [
     [
-        InlineKeyboardButton("📖 Commands", callback_data="COMMAND_BUTTON"),
-        InlineKeyboardButton("👨‍💻 About me", callback_data="ABOUT_BUTTON"),
+        InlineKeyboardButton(
+            "📖 Commands",
+            callback_data="COMMAND_BUTTON"
+        ),
+        InlineKeyboardButton(
+            "👨‍💻 About me",
+            callback_data="ABOUT_BUTTON"
+        ),
     ],
     [
+        InlineKeyboardButton(
+            "🗂️ Edit",
+            callback_data="START_EDIT_MENU"
+        ),
         InlineKeyboardButton(
             "🔭 Source",
             url="https://github.com/anzilr/SubEditBot",

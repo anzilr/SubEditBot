@@ -30,46 +30,46 @@ async def editSubHandler(_, query):
             [
                 [
                     InlineKeyboardButton(
-                        "Edit Text", callback_data=f"EDT__TEXT|{sub_id}|{index}"
+                        "📝 Edit Text", callback_data=f"EDT__TEXT|{sub_id}|{index}"
                     )
                 ],
                 [
                     InlineKeyboardButton(
-                        "Merge",
+                        "🔗 Merge",
                         callback_data=f"{'MERGE_LINE' if index > 1 else 'MERGE'}|{sub_id}|{index}",
                     ),
                     InlineKeyboardButton(
-                        "Menu", callback_data=f"MAIN_MENU|{sub_id}|{index}",
+                        "💠 Menu", callback_data=f"MAIN_MENU|{sub_id}|{index}",
                     ),
                     InlineKeyboardButton(
-                        "Split", callback_data=f"SPLIT_LINE|{sub_id}|{index}"
+                        "✂️ Split", callback_data=f"SPLIT_LINE|{sub_id}|{index}"
                     ),
                 ],
                 [
                     InlineKeyboardButton(
-                        "Add Line", callback_data=f"ADD_NEW_LINE|{sub_id}|{index}"
+                        "➕ Add Line", callback_data=f"ADD_NEW_LINE|{sub_id}|{index}"
                     ),
                     InlineKeyboardButton(
-                        text="Formatter",
+                        text="🎨 Formatter",
                         web_app=WebAppInfo(
                             url="https://anzilr.github.io/TextFormatter/"
                         ),
                     ),
                     InlineKeyboardButton(
-                        "Adjust Time",
+                        "⏲️ Adjust Time",
                         callback_data=f"ADJUST_TIME_LINE|{sub_id}|{index}",
                     ),
                 ],
                 [
                     InlineKeyboardButton(
-                        "<< Prev",
+                        "⏪ Prev",
                         callback_data=f"{'PREV_LINE' if index > 1 else 'PREV'}|{sub_id}|{index - 1}",
                     ),
                     InlineKeyboardButton(
-                        "Delete", callback_data=f"DELETE_LINE|{sub_id}|{index}"
+                        "🗑️ Delete", callback_data=f"DELETE_LINE|{sub_id}|{index}"
                     ),
                     InlineKeyboardButton(
-                        "Next >>", callback_data=f"NEXT_LINE|{sub_id}|{index + 1}"
+                        "Next ⏩", callback_data=f"NEXT_LINE|{sub_id}|{index + 1}"
                     ),
                 ],
             ]

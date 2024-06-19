@@ -24,11 +24,11 @@ async def updateSubtitleID(user_id, sub_data):
     await db.add_sub_id(user_id, sub_data)
 
 
-async def getSubtitleID(user):
+async def getSubtitleID(user_id):
     """
     Get the user's sub_id.
     """
-    return await db.get_sub_id(user.id)
+    return await db.get_sub_id(user_id)
 
 
 # create new document with the parsed data

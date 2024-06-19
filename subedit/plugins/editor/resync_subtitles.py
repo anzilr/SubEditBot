@@ -15,32 +15,31 @@ user_db = {}
 async def resyncSubMenu(_, query):
     message_id = query.message.id
     subtitle_id = query.data.split("|")[1]
-    bot.edit_message_text(
+    await bot.edit_message_text(
         chat_id=query.from_user.id,
         message_id=message_id,
         text="""You can adjust the timing of the subtitle file here.\n<b>How to use?</b>\n\n
              • If you want the subtitle to appear <i>10 seconds </i>earlier, reply <i>-10</i> to this message.\n
              • If you want the subtitle to appear <i>10 seconds </i>later, reply <i>10</i> to this message.""",
-        reply_markup=ForceReply(placeholder="Time in seconds")
-
-    )
-    msg = bot.send_message(
-        text="Send the time in seconds",
-        chat_id=query.from_user.id,
-        reply_to_message_id=message_id,
         reply_markup=InlineKeyboardMarkup(
             [
                 [
                     InlineKeyboardButton(
-                        text="Cancel",
+                        text="❎ Cancel",
                         callback_data=f"MAIN_MENU|{subtitle_id}",
                     )
                 ]
             ]
         ),
     )
+    await bot.send_message(
+        text="Send the time in seconds",
+        chat_id=query.from_user.id,
+        reply_to_message_id=message_id,
+        reply_markup=ForceReply(placeholder="Time in seconds")
+    )
     user_db[query.from_user.id] = {
-        "message_id": msg.id,
+        "message_id": message_id,
         "subtitle_id": subtitle_id
     }
 
@@ -49,11 +48,17 @@ async def resyncSubMenu(_, query):
 async def resyncSub(_, message):
     await bot.delete_messages(
         chat_id=message.from_user.id,
-        message_ids=user_db[message.from_user.id]["message_id"],
+        message_ids=message.reply_to_message_id,
     )
-    timecode = message.text
-    message_id = message.reply_to_message.message.id
+    timecode = int(message.text)
+    # print(message)
+    message_id = user_db[message.from_user.id]["message_id"]
     subtitle_id = user_db[message.from_user.id]["subtitle_id"]
+    await bot.edit_message_text(
+        chat_id=message.from_user.id,
+        message_id=message_id,
+        text=f"Re-syncing subtitles, please wait ⏳..."
+    )
     subtitles = await getSubtitleArray(subtitle_id)
     srt_items = []
     for subtitle in subtitles:
@@ -93,6 +98,10 @@ async def resyncSub(_, message):
         subtitle_data.append(subtitle_entry)
 
     await UpdateSubtitleArray(subtitle_id, subtitle_data)
+    await bot.delete_messages(
+        chat_id=message.from_user.id,
+        message_ids=message.id
+    )
     await bot.edit_message_text(
         chat_id=message.from_user.id,
         message_id=message_id,
@@ -101,7 +110,7 @@ async def resyncSub(_, message):
             [
                 [
                     InlineKeyboardButton(
-                        "Explore", switch_inline_query_current_chat=subtitle_id
+                        "🔭 Explore", switch_inline_query_current_chat=subtitle_id
                     ),
                     InlineKeyboardButton(
                         "Edit", callback_data=f"EDIT_SUB|{subtitle_id}"
@@ -109,15 +118,15 @@ async def resyncSub(_, message):
                 ],
                 [
                     InlineKeyboardButton(
-                        "Compile", callback_data=f"COMPILE_SUB|{subtitle_id}"
+                        "📦 Compile", callback_data=f"COMPILE_SUB|{subtitle_id}"
                     ),
                     InlineKeyboardButton(
-                        "Delete", callback_data=f"DELETE_SUB|{subtitle_id}"
+                        "🗑️ Delete", callback_data=f"DELETE_SUB|{subtitle_id}"
                     ),
                 ],
                 [
                     InlineKeyboardButton(
-                        "Re-sync", callback_data=f"RESYNC_SUB|{subtitle_id}"
+                        "♻️ Re-sync", callback_data=f"RESYNC_SUB|{subtitle_id}"
                     )
                 ]
             ]
