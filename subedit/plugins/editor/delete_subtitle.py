@@ -36,7 +36,7 @@ async def deleteSubtitleConfirm(_, query):
     sub_id = query.data.split("|")[1]
     user_id = query.from_user.id
     await deleteSubtitleDocument(user_id, sub_id)
-    sub_ids = await getSubtitleID(query.from_user)
+    sub_ids = await getSubtitleID(query.from_user.id)
     if not sub_ids:
         await bot.edit_message_text(
             chat_id=user_id,

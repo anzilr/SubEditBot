@@ -62,7 +62,7 @@ async def srtHandler(_, message):
         os.remove(file_path)
         await bot.send_message(
             chat_id=message.from_user.id,
-            text=f"Subtitles file <code>{srt_file.file_name}</code> has been processed successfully.",
+            text=f"Subtitle file <code>{srt_file.file_name}</code> has been processed successfully.",
             reply_markup=InlineKeyboardMarkup(
                 [
                     [
@@ -81,6 +81,11 @@ async def srtHandler(_, message):
                             "🗑️ Delete", callback_data=f"DELETE_SUB|{sub_id}"
                         ),
                     ],
+                    [
+                        InlineKeyboardButton(
+                            "♻️ Re-sync", callback_data=f"RESYNC_SUB|{sub_id}"
+                        )
+                    ]
                 ]
             ),
         )
