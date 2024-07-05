@@ -1,5 +1,6 @@
 from subedit import bot
 from pyrogram import filters
+from pyrogram.enums import ParseMode
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, WebAppInfo
 from subedit.database.database import getLastMessageID, updateLastIndexAndMessageID
 from subedit.helpers.Filters.custom_filters import CallbackButtonDataFilter
@@ -33,14 +34,15 @@ async def paginateLine(query):
     subtitle = line["original"]
     edited_line = line["edited"]
     if edited_line is None:
-        content = f"<b>{index}</b>\n<i>{timecode}</i>\n\n<code>{subtitle}</code>"
+        content = f"**{index}**\n__{timecode}__\n\n`{subtitle}`"
 
     else:
-        content = f"<b>{index}</b>\n<i>{timecode}</i>\n\n<i>Original</i>\n<code>{subtitle}</code>\n\n<i>Edited</i>\n<code>{edited_line}</code>"
+        content = f"**{index}**\n__{timecode}__\n\n__Original__\n`{subtitle}`\n\n__Edited__\n`{edited_line}`"
     msg = await bot.edit_message_text(
         chat_id=query.from_user.id,
         text=content,
         message_id=msg_id,
+        parse_mode=ParseMode.MARKDOWN,
         reply_markup=InlineKeyboardMarkup(
             [
                 [

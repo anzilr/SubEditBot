@@ -21,7 +21,7 @@ async def deleteLine(_, query):
             [
                 [
                     InlineKeyboardButton(
-                        text="OK",
+                        text="🚮 OK",
                         callback_data=f"DELETE_CURRENT_LINE|{sub_id}|{delete_index}",
                     )
                 ],

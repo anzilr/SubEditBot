@@ -16,7 +16,7 @@ async def deleteSubtitle(_, query):
             [
                 [
                     InlineKeyboardButton(
-                        text="🗑️ Delete",
+                        text="🚮 Delete",
                         callback_data=f"DELETE_CURRENT_SUB|{sub_id}",
                     )
                 ],
