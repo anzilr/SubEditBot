@@ -78,6 +78,8 @@ Features:
 
 And that’s just the tip of the iceberg! SubEditBot can do a lot more than that soon, but that’s enough to get you started. why wait? Let SubEditBot take your subtitle editing to the next level! 🎬🌟
 
-Enjoy your editing adventures with SubEditBot! 📽️😄"""
+Enjoy your editing adventures with SubEditBot! 📽️😄
+
+Contact 👨🏽‍💻 [Anzil R](t.me/anzilr) to report any bugs or feature requests."""
 
 COMMAND_CAPTION = """**Here are the list of commands which you can use in bot.\n**"""
