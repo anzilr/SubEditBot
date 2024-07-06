@@ -65,6 +65,11 @@ async def editSubHandler(_, query):
                 ],
                 [
                     InlineKeyboardButton(
+                        "👨🏽‍💻 Translate", callback_data=f"TRANSLATE|{sub_id}|{index}"
+                    )
+                ],
+                [
+                    InlineKeyboardButton(
                         "⏪ Prev",
                         callback_data=f"{'PREV_LINE' if index > 1 else 'PREV'}|{sub_id}|{index - 1}",
                     ),
