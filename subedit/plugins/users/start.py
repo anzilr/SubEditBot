@@ -36,10 +36,10 @@ START_BUTTON = [
 
 COMMAND_BUTTON = [
     [
-        InlineKeyboardButton("Users", callback_data="USER_BUTTON"),
-        InlineKeyboardButton("Sudo", callback_data="SUDO_BUTTON"),
+        InlineKeyboardButton("👨🏽‍👩🏽‍👧🏽‍👦🏽 Users", callback_data="USER_BUTTON"),
+        InlineKeyboardButton("👷🏽‍♂️ Sudo", callback_data="SUDO_BUTTON"),
     ],
-    [InlineKeyboardButton("Developer", callback_data="DEV_BUTTON")],
+    [InlineKeyboardButton("👨‍💻 Developer", callback_data="DEV_BUTTON")],
     [InlineKeyboardButton("🔙 Go Back", callback_data="START_BUTTON")],
 ]
 
