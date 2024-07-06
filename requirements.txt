@@ -7,3 +7,4 @@ pysrt~=1.1.2
 
 pymongo~=4.7.2
 convopyro~=0.3
+easygoogletranslate~=0.0.4
