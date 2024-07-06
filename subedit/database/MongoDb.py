@@ -178,6 +178,18 @@ class MongoDB:
         )
         return result.modified_count > 0
 
+    async def update_language_code(self, user_id, language_code):
+        result = await self.users_collection.update_one(
+            {"_id": user_id}, {"$set": {"language_code": language_code}}
+        )
+        return result.modified_count > 0
+
+    async def get_language_code(self, user_id):
+        document = await self.users_collection.find_one(
+            {"_id": user_id}, {"language_code": 1, "_id": 0}
+        )
+        return document.get("language_code") if document else None
+
 
 db = MongoDB()
 

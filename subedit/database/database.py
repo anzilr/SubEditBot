@@ -12,6 +12,7 @@ async def saveUser(user):
         "name": (user.first_name or " ") + (user.last_name or ""),
         "username": user.username,
         "date": datetime.now(timezone.utc),
+        "language_code": "en",
         "subtitles": [],
     }
     await db.create_user(insert_format)
@@ -94,3 +95,12 @@ async def updateSubtitleEdited(subtitle_id, index, edited_text):
 
 async def updateNewTime(subtitle_id, index, start, end):
     await db.update_new_time(subtitle_id, index, start, end)
+
+
+async def updateLanguageCode(user_id, language_code):
+    await db.update_language_code(user_id, language_code)
+
+
+async def getLanguageCode(user_id):
+    language_code = await db.get_language_code(user_id)
+    return language_code
