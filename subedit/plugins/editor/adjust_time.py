@@ -144,6 +144,11 @@ async def inputNewTime(_, message):
                 ],
                 [
                     InlineKeyboardButton(
+                        "👨🏽‍💻 Translate", callback_data=f"TRANSLATE|{subtitle_id}|{index}"
+                    )
+                ],
+                [
+                    InlineKeyboardButton(
                         "⏪ Prev",
                         callback_data=f"{'PREV_LINE' if index > 1 else 'PREV'}|{subtitle_id}|{index - 1}",
                     ),
