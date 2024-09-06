@@ -66,7 +66,13 @@ async def editSubHandler(_, query):
                 [
                     InlineKeyboardButton(
                         "👨🏽‍💻 Translate", callback_data=f"TRANSLATE|{sub_id}|{index}"
-                    )
+                    ),
+                    InlineKeyboardButton(
+                        text="📺 Player",
+                        web_app=WebAppInfo(
+                            url=f"https://webplayer-aflw.onrender.com/player/{sub_id}/{index}/"
+                        ),
+                    ),
                 ],
                 [
                     InlineKeyboardButton(
