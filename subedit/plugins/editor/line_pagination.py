@@ -82,7 +82,13 @@ async def paginateLine(query):
             [
                 InlineKeyboardButton(
                     "👨🏽‍💻 Translate", callback_data=f"TRANSLATE|{sub_id}|{index}"
-                )
+                ),
+                InlineKeyboardButton(
+                    text="📺 Player",
+                    web_app=WebAppInfo(
+                        url=f"https://webplayer-aflw.onrender.com/player/{sub_id}/{index}/"
+                    ),
+                ),
             ],
             [
                 InlineKeyboardButton(
@@ -98,6 +104,7 @@ async def paginateLine(query):
             ],
         ]
     )
+
     try:
 
         msg = await bot.edit_message_text(
@@ -114,6 +121,5 @@ async def paginateLine(query):
             parse_mode=ParseMode.MARKDOWN,
             reply_markup=reply_markup
         )
-
     await updateLastIndexAndMessageID(sub_id, index, msg.id)
     # await editorHandler(sub_id, index, query.from_user.id)
