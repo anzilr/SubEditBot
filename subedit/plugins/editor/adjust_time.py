@@ -145,6 +145,12 @@ async def inputNewTime(_, message):
                 [
                     InlineKeyboardButton(
                         "👨🏽‍💻 Translate", callback_data=f"TRANSLATE|{subtitle_id}|{index}"
+                    ),
+                    InlineKeyboardButton(
+                        text="📺 Player",
+                        web_app=WebAppInfo(
+                            url=f"https://webplayer-aflw.onrender.com/player/{subtitle_id}/{index}/"
+                        ),
                     )
                 ],
                 [
