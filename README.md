@@ -8,7 +8,8 @@ Welcome to **[SubEditBot](t.me/SubEditBot)**! This Telegram bot is your ultimate
 - **Add and Remove Lines:** Easily add new lines or remove unwanted ones from your subtitle files.
 - **Merge and Split Lines:** Combine multiple lines into one or split long lines into shorter segments.
 - **Adjust Time of Lines:** Fine-tune the timing of your subtitles to perfection.
-- **Inbuilt Color Picker and Text Formatter:** Access a web app to pick colors and format your text for more dynamic subtitles.
+- **Inbuilt [Color Picker and Text Formatter](https://github.com/anzilr/TextFormatter):** Access a web app to pick colors and format your text for more dynamic subtitles.
+- **Inbuilt [WebPlayer](https://github.com/anzilr/WebPlayer):** Preview the edited subtitles on a WbPlayer.
 - **Cloud Database:** All your subtitle editing is stored securely in the cloud, ensuring no loss of unsaved work.
 
 ## Getting Started
@@ -129,6 +130,9 @@ SubEditBot/
 ```
 ## Web App Integration
 SubEditBot includes a web app for advanced text formatting and color picking. Access it via the Formatter button in the bot interface. Source [here](https://github.com/anzilr/TextFormatter)
+
+## WebPlayer
+SubEditBot includes a [WebPlayer](https://github.com/anzilr/WebPlayer) for previewing the edited subtitles with video. Access it via the Player button in the bot interface.
 
 ## Contributing
 We welcome contributions! If you have suggestions for improvements or find any bugs, please open an issue or submit a pull request.
