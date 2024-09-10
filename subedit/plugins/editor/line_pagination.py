@@ -86,7 +86,7 @@ async def paginateLine(query):
                 InlineKeyboardButton(
                     text="📺 Player",
                     web_app=WebAppInfo(
-                        url=f"https://webplayer-aflw.onrender.com/player/{sub_id}/{index}/"
+                        url=f"https://eblayer-anzilr9398-jh1n7zan.leapcell.dev/player/{sub_id}/{index}/"
                     ),
                 ),
             ],

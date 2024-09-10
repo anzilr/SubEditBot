@@ -149,7 +149,7 @@ async def inputNewTime(_, message):
                     InlineKeyboardButton(
                         text="📺 Player",
                         web_app=WebAppInfo(
-                            url=f"https://webplayer-aflw.onrender.com/player/{subtitle_id}/{index}/"
+                            url=f"https://eblayer-anzilr9398-jh1n7zan.leapcell.dev/player/{subtitle_id}/{index}/"
                         ),
                     )
                 ],
