@@ -93,7 +93,7 @@ async def editorHandler(subtitle_id, index, user_id):
                         InlineKeyboardButton(
                             text="📺 Player",
                             web_app=WebAppInfo(
-                                url=f"https://eblayer-anzilr9398-jh1n7zan.leapcell.dev/player/{subtitle_id}/{index}/"
+                                url=f"https://web-player-ebon.vercel.app/player/{subtitle_id}/{index}/"
                             ),
                         ),
                     ],

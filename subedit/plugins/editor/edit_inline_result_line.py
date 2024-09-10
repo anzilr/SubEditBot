@@ -74,7 +74,7 @@ async def editSingleLine(_, query):
                     InlineKeyboardButton(
                         text="📺 Player",
                         web_app=WebAppInfo(
-                            url=f"https://eblayer-anzilr9398-jh1n7zan.leapcell.dev/player/{sub_id}/{index}/"
+                            url=f"https://web-player-ebon.vercel.app/player/{sub_id}/{index}/"
                         ),
                     ),
                 ],
