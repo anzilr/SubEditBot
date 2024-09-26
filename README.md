@@ -10,6 +10,7 @@ Welcome to **[SubEditBot](t.me/SubEditBot)**! This Telegram bot is your ultimate
 - **Adjust Time of Lines:** Fine-tune the timing of your subtitles to perfection.
 - **Inbuilt [Color Picker and Text Formatter](https://github.com/anzilr/TextFormatter):** Access a web app to pick colors and format your text for more dynamic subtitles.
 - **Inbuilt [WebPlayer](https://github.com/anzilr/WebPlayer):** Preview the edited subtitles on a WbPlayer.
+- **Extract subtitles from video files:** Send video files to extract subtitle tracks.
 - **Cloud Database:** All your subtitle editing is stored securely in the cloud, ensuring no loss of unsaved work.
 
 ## Getting Started
