@@ -11,6 +11,7 @@ Welcome to **[SubEditBot](t.me/SubEditBot)**! This Telegram bot is your ultimate
 - **Inbuilt [Color Picker and Text Formatter](https://github.com/anzilr/TextFormatter):** Access a web app to pick colors and format your text for more dynamic subtitles.
 - **Inbuilt [WebPlayer](https://github.com/anzilr/WebPlayer):** Preview the edited subtitles on a WbPlayer.
 - **Extract subtitles from video files:** Send video files to extract subtitle tracks.
+- **Collaborate with others:** The collaborative editing feature in SubEditBot allows multiple users to work together on editing subtitles. Authorized collaborators can access and modify subtitles in real-time, while administrators or original owners of the subtitle can manage permissions, such as blacklisting or removing collaborators. This feature enhances teamwork, ensuring efficient collaboration by allowing users to contribute, edit, or review subtitle files collectively within the bot’s interface.
 - **Cloud Database:** All your subtitle editing is stored securely in the cloud, ensuring no loss of unsaved work.
 
 ## Getting Started

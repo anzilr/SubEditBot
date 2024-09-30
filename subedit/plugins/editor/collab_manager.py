@@ -179,7 +179,7 @@ async def collab_menu(_, query: CallbackQuery):
         await bot.edit_message_text(
             chat_id=user_id,
             message_id=query.message.id,
-            text="Select an option from below",
+            text="The collaborative editing feature in SubEditBot allows multiple users to work together on editing subtitles. Authorized collaborators can access and modify subtitles in real-time, while administrators or original owners of the subtitle can manage permissions, such as blacklisting or removing collaborators. This feature enhances teamwork, ensuring efficient collaboration by allowing users to contribute, edit, or review subtitle files collectively within the bot’s interface.",
             reply_markup=InlineKeyboardMarkup(
                 [
                     [
