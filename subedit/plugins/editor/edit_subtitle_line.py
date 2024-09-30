@@ -3,14 +3,24 @@ from pyrogram.enums import ParseMode
 from subedit import bot
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, WebAppInfo
 from subedit.helpers.Filters.custom_filters import CallbackButtonDataFilter
-from subedit.database.database import getLastIndexAndMessageID, updateLastMessageID
+from subedit.database.database import getLastIndexAndMessageID, updateLastMessageID, \
+    getLastIndexAndMessageIDCollabStatus, checkCollabMember, checkCollabMemberBlacklist
 from subedit.plugins.editor.sub_editor import fetchLine
 
 
 @bot.on_callback_query(CallbackButtonDataFilter("EDIT_SUB"))
 async def editSubHandler(_, query):
     sub_id = query.data.split("|")[1]
-    index, last_message_id = await getLastIndexAndMessageID(sub_id)
+    user_id = query.from_user.id
+    index, last_message_id, collab_status = await getLastIndexAndMessageIDCollabStatus(sub_id)
+    if collab_status:
+        if not await checkCollabMember(sub_id, user_id):
+            await query.answer("⛔️️ You are not authorized to edit this subtitle.", show_alert=True)
+            return
+
+        if await checkCollabMemberBlacklist(sub_id, user_id):
+            await query.answer("⛔️️️ You are on the blacklist for this subtitle.", show_alert=True)
+            return
     if index is None:
         index = 1
     line = await fetchLine(sub_id, index)
