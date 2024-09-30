@@ -176,11 +176,11 @@ class MongoDB:
         return document is not None
 
     async def remove_collab_member(self, subtitle_id, user_id):
-        print(str(user_id))
+        # print(str(user_id))
         result = await self.subtitles_collection.update_one(
             {"_id": subtitle_id}, {"$pull": {"collab_members": {"id": str(user_id)}}},
         )
-        print(f"Removed member with id {user_id} from subtitles collection" if result.modified_count > 0 else "No member with id {user_id} found")
+        # print(f"Removed member with id {user_id} from subtitles collection" if result.modified_count > 0 else "No member with id {user_id} found")
         return result.modified_count > 0
 
     async def remove_collab_data(self, subtitle_id):
@@ -293,6 +293,7 @@ class MongoDB:
         return result.deleted_count
 
     async def remove_subtitle_from_user(self, user_id, subtitle_id):
+        # print(user_id)
         result = await self.users_collection.update_one(
             {"_id": user_id}, {"$pull": {"subtitles": {"id": subtitle_id}}}
         )
