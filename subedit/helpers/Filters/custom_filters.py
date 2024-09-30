@@ -1,4 +1,5 @@
 from pyrogram import filters
+import re
 from subedit.logging import LOGGER
 
 def CallbackDataFilter(data):
@@ -29,3 +30,8 @@ def UserStateFilter(user_db):
 
     # "message" kwarg is accessed with "_" above
     return filters.create(func, "UserStateFilter")
+
+
+def collab_filter(_, __, message):
+    # Regular expression to match '/collab' followed by a number
+    return bool(re.match(r"^/collab \d+$", message.text))
