@@ -2,7 +2,8 @@ from pyrogram.enums import ParseMode
 from subedit import bot
 from pyrogram import filters
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, WebAppInfo
-from subedit.database.database import getLastMessageID, updateLastIndexAndMessageID
+from subedit.database.database import getLastMessageID, updateLastIndexAndMessageID, \
+    getLastIndexAndMessageIDCollabStatus, checkCollabMemberBlacklist, checkCollabMember
 from subedit.helpers.Filters.custom_filters import CallbackButtonDataFilter
 from subedit.plugins.editor.sub_editor import updateEdit
 import asyncio
@@ -11,10 +12,18 @@ import asyncio
 @bot.on_callback_query(CallbackButtonDataFilter("EDT__TEXT"))
 async def editLine(_, query):
     # print(f"Data = {query.data}")
+    sub_id = query.data.split("|")[1]
+    indexx, message_id, collab_status = await getLastIndexAndMessageIDCollabStatus(sub_id)
+    if collab_status:
+        if not await checkCollabMember(sub_id, query.from_user.id):
+            await query.answer("⛔️️ You are not authorized to edit this subtitle.", show_alert=True)
+            return
+        if await checkCollabMemberBlacklist(sub_id, query.from_user.id):
+            await query.answer("⛔️️️ You are on the blacklist for this subtitle.", show_alert=True)
+            return
     instruction_msg = await bot.send_message(
         chat_id=query.from_user.id, text="Send the edited text."
     )
-    sub_id = query.data.split("|")[1]
     next_index = int(query.data.split("|")[2])
     msg_id = await editorHandler(sub_id, next_index, query.from_user.id)
     await instruction_msg.delete()
