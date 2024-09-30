@@ -1,3 +1,5 @@
+from subedit.database.database import getLastIndexAndMessageIDCollabStatus, checkCollabMember, \
+    checkCollabMemberBlacklist
 from subedit.helpers.Filters.custom_filters import (
     CallbackDataFilter,
     CallbackButtonDataFilter,
@@ -102,6 +104,9 @@ async def srtHandler(_, message):
                     [
                         InlineKeyboardButton(
                             "♻️ Re-sync", callback_data=f"RESYNC_SUB|{sub_id}"
+                        ),
+                        InlineKeyboardButton(
+                            "👫 Collaborate", callback_data=f"COLLAB_MENU|{sub_id}"
                         )
                     ]
                 ]
@@ -128,6 +133,16 @@ async def srtHandler(_, message):
 @bot.on_callback_query(CallbackButtonDataFilter("MAIN_MENU"))
 async def editSub(_, query):
     sub_id = query.data.split("|")[1]
+    user_id = query.from_user.id
+    index, msg_id, collab_status = await getLastIndexAndMessageIDCollabStatus(sub_id)
+    if collab_status:
+        if not await checkCollabMember(sub_id, user_id):
+            await query.answer("⛔️️ You are not authorized to edit this subtitle.", show_alert=True)
+            return
+
+        elif await checkCollabMemberBlacklist(sub_id, user_id):
+            await query.answer("⛔️️️ You are on the blacklist for this subtitle.", show_alert=True)
+            return
     await bot.send_message(
         chat_id=query.from_user.id,
         text="Select an option from below",
@@ -152,6 +167,9 @@ async def editSub(_, query):
                 [
                     InlineKeyboardButton(
                         "♻️ Re-sync", callback_data=f"RESYNC_SUB|{sub_id}"
+                    ),
+                    InlineKeyboardButton(
+                        "👫 Collaborate", callback_data=f"COLLAB_MENU|{sub_id}"
                     )
                 ]
             ]
