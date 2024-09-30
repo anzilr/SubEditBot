@@ -65,12 +65,14 @@ async def removeUserFromCollab(user_id, subtitle_id):
 async def removeCollabData(subtitle_id):
     users = await db.get_collab_members(subtitle_id)
     collab_admin = await db.get_collab_admin(subtitle_id)
-    # print(collab_admin)
+    collab_admin = str(collab_admin)
     if users:
         for user in users:
             user_id = str(user["id"])
-            await removeUserFromCollab(user_id, subtitle_id)
-            if user_id != str(collab_admin):
+            await db.remove_collab_member(subtitle_id, user_id)
+            if user_id == collab_admin:
+                pass
+            else:
                 await db.remove_subtitle_from_user(int(user_id), subtitle_id)
     await db.remove_collab_data(subtitle_id)
 
