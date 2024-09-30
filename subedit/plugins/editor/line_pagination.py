@@ -3,7 +3,8 @@ from pyrogram import filters
 from pyrogram.enums import ParseMode
 from pyrogram.errors.exceptions.bad_request_400 import MessageNotModified
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, WebAppInfo
-from subedit.database.database import getLastMessageID, updateLastIndexAndMessageID
+from subedit.database.database import getLastMessageID, updateLastIndexAndMessageID, checkCollabMember, \
+    getLastIndexAndMessageIDCollabStatus, checkCollabMemberBlacklist
 from subedit.helpers.Filters.custom_filters import CallbackButtonDataFilter
 from subedit.plugins.editor.sub_editor import fetchLine
 
@@ -26,7 +27,16 @@ async def paginateLine(query):
         pass
     sub_id = query.data.split("|")[1]
     next_index = int(query.data.split("|")[2])
-    msg_id = await getLastMessageID(sub_id)
+    # msg_id = await getLastMessageID(sub_id)
+    user_id = query.from_user.id
+    index, msg_id, collab_status = await getLastIndexAndMessageIDCollabStatus(sub_id)
+    if collab_status:
+        if not await checkCollabMember(sub_id, user_id):
+            await query.answer("⛔️️ You are not authorized to edit this subtitle.", show_alert=True)
+            return
+        if await checkCollabMemberBlacklist(sub_id, user_id):
+            await query.answer("⛔️️️ You are on the blacklist for this subtitle.", show_alert=True)
+            return
     line = await fetchLine(sub_id, index=next_index)
     try:
         index = line["index"]
@@ -104,7 +114,6 @@ async def paginateLine(query):
             ],
         ]
     )
-    print(f"https://eblayer-anzilr9398-jh1n7zan.leapcell.dev/player/{sub_id}/{index}/")
     try:
 
         msg = await bot.edit_message_text(
