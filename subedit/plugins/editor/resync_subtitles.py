@@ -5,7 +5,7 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, ForceRepl
 from pyrogram import filters
 from subedit.database.database import (
     getSubtitleArray,
-    UpdateSubtitleArray,
+    UpdateSubtitleArray, checkCollabMemberBlacklist, checkCollabMember, getLastIndexAndMessageIDCollabStatus,
 )
 
 user_db = {}
@@ -15,6 +15,14 @@ user_db = {}
 async def resyncSubMenu(_, query):
     message_id = query.message.id
     subtitle_id = query.data.split("|")[1]
+    indexx, messagee_id, collab_status = await getLastIndexAndMessageIDCollabStatus(subtitle_id)
+    if collab_status:
+        if not await checkCollabMember(subtitle_id, query.from_user.id):
+            await query.answer("⛔️️ You are not authorized to edit this subtitle.", show_alert=True)
+            return
+        if await checkCollabMemberBlacklist(subtitle_id, query.from_user.id):
+            await query.answer("⛔️️️ You are on the blacklist for this subtitle.", show_alert=True)
+            return
     await bot.edit_message_text(
         chat_id=query.from_user.id,
         message_id=message_id,
