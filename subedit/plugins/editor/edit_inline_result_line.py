@@ -4,7 +4,8 @@ from subedit import bot
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, WebAppInfo
 from pyrogram import filters
 from subedit.helpers.Filters.custom_filters import CallbackButtonDataFilter
-from subedit.database.database import getLastMessageID, updateLastIndexAndMessageID
+from subedit.database.database import getLastMessageID, updateLastIndexAndMessageID, \
+    getLastIndexAndMessageIDCollabStatus, checkCollabMember, checkCollabMemberBlacklist
 from subedit.plugins.editor.sub_editor import fetchLine
 
 
@@ -15,8 +16,16 @@ async def editSingleLine(_, query):
     except Exception as e:
         pass
     sub_id = query.data.split("|")[1]
+    indexx, msg_id, collab_status = await getLastIndexAndMessageIDCollabStatus(sub_id)
+    if collab_status:
+        if not await checkCollabMember(sub_id, query.from_user.id):
+            await query.answer("⛔️️ You are not authorized to edit this subtitle.", show_alert=True)
+            return
+        if await checkCollabMemberBlacklist(sub_id, query.from_user.id):
+            await query.answer("⛔️️️ You are on the blacklist for this subtitle.", show_alert=True)
+            return
     next_index = int(query.data.split("|")[2])
-    msg_id = await getLastMessageID(sub_id)
+    # msg_id = await getLastMessageID(sub_id)
     line = await fetchLine(sub_id, index=next_index)
     index = line["index"]
     start_time = line["start_time"]
