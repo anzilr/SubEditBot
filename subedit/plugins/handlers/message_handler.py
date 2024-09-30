@@ -17,7 +17,7 @@ async def editMenu(_, message):
 
 async def Editor(user_id, message_id):
     sub_ids = await getSubtitleID(user_id)
-    print(sub_ids)
+    # print(sub_ids)
     if not sub_ids:
         await bot.send_message(
             chat_id=user_id,
@@ -28,9 +28,9 @@ async def Editor(user_id, message_id):
     else:
         edit_subID_button = []
         for ID in sub_ids:
-            print(ID)
+            # print(ID)
             button_data = f"MAIN_MENU|{ID['id']}"
-            print(button_data)
+            # print(button_data)
             edit_subID_button.append(
                 [InlineKeyboardButton(f"{ID['file_name']}", callback_data=button_data)],
             )
