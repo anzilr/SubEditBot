@@ -24,6 +24,7 @@ async def srtParser(user_id, file_path, subtitle_id, file_name):
             "last_edited_line": None,
             "last_message_id": None,
             "error_message_id": None,
+            "collab_admin": user_id,
             "subtitles": subtitle_data,
         }
         sub_data = {"id": subtitle_id, "file_name": file_name}
