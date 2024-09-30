@@ -3,12 +3,21 @@ import pysrt
 import os
 from typing import List, Dict, Any
 from subedit.helpers.Filters.custom_filters import CallbackButtonDataFilter
-from subedit.database.database import getSubtitleDocument
+from subedit.database.database import getSubtitleDocument, getLastIndexAndMessageIDCollabStatus, checkCollabMember, \
+    checkCollabMemberBlacklist
 
 
 @bot.on_callback_query(CallbackButtonDataFilter("COMPILE_SUB"))
 async def compileSubtitle(_, query):
     subtitle_id = query.data.split("|")[1]
+    indexx, message_id, collab_status = await getLastIndexAndMessageIDCollabStatus(subtitle_id)
+    if collab_status:
+        if not await checkCollabMember(subtitle_id, query.from_user.id):
+            await query.answer("⛔️️ You are not authorized to edit this subtitle.", show_alert=True)
+            return
+        if await checkCollabMemberBlacklist(subtitle_id, query.from_user.id):
+            await query.answer("⛔️️️ You are on the blacklist for this subtitle.", show_alert=True)
+            return
     msg = await bot.send_message(
         chat_id=query.from_user.id, text="Compiling the srt, please wait..."
     )
