@@ -312,7 +312,7 @@ async def remove_collaborator_menu(_, query: CallbackQuery):
 async def remove_collaborator(_, query: CallbackQuery):
     user_id = query.from_user.id
     subtitle_id = query.data.split("|")[1]
-    user_id_to_remove = str(query.data.split("|")[-1])
+    user_id_to_remove = query.data.split("|")[-1]
     user_data = await getCollabMember(subtitle_id, user_id_to_remove)
     username = user_data['username']
     await removeUserFromCollab(user_id_to_remove, subtitle_id)
