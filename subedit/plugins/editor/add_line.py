@@ -6,7 +6,7 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from subedit.database.database import (
     getSubtitleArray,
     getLastMessageID,
-    UpdateSubtitleArray,
+    UpdateSubtitleArray, getLastIndexAndMessageIDCollabStatus, checkCollabMember, checkCollabMemberBlacklist,
 )
 from subedit.plugins.editor.line_pagination import paginateLine
 
@@ -15,7 +15,15 @@ from subedit.plugins.editor.line_pagination import paginateLine
 async def addNewLine(_, query):
     subtitle_id = query.data.split("|")[1]
     index = int(query.data.split("|")[2])
-    message_id = await getLastMessageID(subtitle_id)
+    # message_id = await getLastMessageID(subtitle_id)
+    indexx, message_id, collab_status = await getLastIndexAndMessageIDCollabStatus(subtitle_id)
+    if collab_status:
+        if not await checkCollabMember(subtitle_id, query.from_user.id):
+            await query.answer("⛔️️ You are not authorized to edit this subtitle.", show_alert=True)
+            return
+        if await checkCollabMemberBlacklist(subtitle_id, query.from_user.id):
+            await query.answer("⛔️️️ You are on the blacklist for this subtitle.", show_alert=True)
+            return
     await bot.edit_message_text(
         chat_id=query.from_user.id,
         text=f"This option can add a blank line with a duration of <i>2 seconds</i> after or before line number <i>{index}</i>.\n\nYou can edit the time code and text later.",
