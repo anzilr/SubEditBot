@@ -25,11 +25,79 @@ async def updateSubtitleID(user_id, sub_data):
     await db.add_sub_id(user_id, sub_data)
 
 
+async def updateCollabID(user_id, collab_data):
+    await db.add_collab_id(user_id, collab_data)
+
+
+async def updateCollabStatus(subtitle_id, status, user_id):
+    await db.update_collab_status(subtitle_id, status, user_id)
+
+
+async def getCollabStatus(subtitle_id):
+    return await db.get_collab_status(subtitle_id)
+
+
+async def getCollabAdmin(subtitle_id):
+    return await db.get_collab_admin(subtitle_id)
+
+
+async def updateCollabMember(subtitle_id, user_data):
+    await db.update_collab_members(subtitle_id, user_data)
+
+
+async def getCollabMembers(subtitle_id):
+    return await db.get_collab_members(subtitle_id)
+
+
+async def getCollabMember(subtitle_id, user_id):
+    return await db.get_collab_member(subtitle_id, user_id)
+
+
+async def checkCollabMember(subtitle_id, user_id):
+    return await db.is_collab_member(subtitle_id, user_id)
+
+
+async def removeUserFromCollab(user_id, subtitle_id):
+    await db.remove_collab_member(subtitle_id, user_id)
+    await db.remove_subtitle_from_user(user_id, subtitle_id)
+
+
+async def removeCollabData(subtitle_id):
+    user_ids = await db.get_collab_members(subtitle_id)
+    if user_ids:
+        for user_id in user_ids:
+            await removeUserFromCollab(user_id, subtitle_id)
+    await db.remove_collab_data(subtitle_id)
+
+
+async def updateCollabBlacklist(subtitle_id, user_data):
+    await db.update_collab_blacklist(subtitle_id, user_data)
+
+
+async def getCollabBlacklist(subtitle_id):
+    return await db.get_collab_blacklist(subtitle_id)
+
+
+async def removeCollabBlacklistUser(subtitle_id, user_id):
+    await db.remove_collab_blacklist_user(subtitle_id, user_id)
+
+
+async def getCollabBlacklistUser(subtitle_id, user_id):
+    return await db.get_collab_blacklist_user(subtitle_id, user_id)
+
+
+async def checkCollabMemberBlacklist(subtitle_id, user_id):
+    return await db.is_collab_member_blacklist(subtitle_id, user_id)
+
+
 async def getSubtitleID(user_id):
     """
     Get the user's sub_id.
     """
     return await db.get_sub_id(user_id)
+
+async def getSubtitleName(subtitle_id):
+    return await db.get_sub_name(subtitle_id)
 
 
 # create new document with the parsed data
@@ -82,6 +150,11 @@ async def updateLastIndexAndMessageID(subtitle_id, index, message_id):
 async def getLastIndexAndMessageID(subtitle_id):
     index, message_id = await db.get_last_message_id_and_index(subtitle_id)
     return index, message_id
+
+
+async def getLastIndexAndMessageIDCollabStatus(subtitle_id):
+    index, message_id, collab_status = await db.get_last_message_id_index_and_collab_status(subtitle_id)
+    return index, message_id, collab_status
 
 
 async def getLastMessageID(subtitle_id):
