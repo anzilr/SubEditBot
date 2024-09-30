@@ -10,7 +10,7 @@ from subedit.database.database import (
     getLastMessageID,
     getSubtitleByIndex,
     updateNewTime,
-    updateLastIndexAndMessageID,
+    updateLastIndexAndMessageID, getLastIndexAndMessageIDCollabStatus, checkCollabMember, checkCollabMemberBlacklist,
 )
 from subedit.plugins.editor.line_pagination import paginateLine
 from subedit.plugins.editor.sub_editor import fetchLine
@@ -22,7 +22,15 @@ user_state = {}
 async def adjustTime(_, query):
     subtitle_id = query.data.split("|")[1]
     index = int(query.data.split("|")[2])
-    message_id = await getLastMessageID(subtitle_id)
+    # message_id = await getLastMessageID(subtitle_id)
+    indexx, message_id, collab_status = await getLastIndexAndMessageIDCollabStatus(subtitle_id)
+    if collab_status:
+        if not await checkCollabMember(subtitle_id, query.from_user.id):
+            await query.answer("⛔️️ You are not authorized to edit this subtitle.", show_alert=True)
+            return
+        if await checkCollabMemberBlacklist(subtitle_id, query.from_user.id):
+            await query.answer("⛔️️️ You are on the blacklist for this subtitle.", show_alert=True)
+            return
     await bot.edit_message_text(
         chat_id=query.from_user.id,
         text=f"Adjust the duration of current line.\n\n<i><b>Tip: Note the time codes of previous and next lines before adjust the time to avoid overlapping subtitles</b></i>.",
