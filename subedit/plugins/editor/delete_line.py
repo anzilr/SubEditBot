@@ -5,14 +5,23 @@ import pysrt
 import asyncio
 from subedit.plugins.editor.line_pagination import paginateLine
 from subedit.helpers.Filters.custom_filters import CallbackButtonDataFilter
-from subedit.database.database import getSubtitleArray, UpdateSubtitleArray, getLastMessageID
+from subedit.database.database import getSubtitleArray, UpdateSubtitleArray, getLastMessageID, \
+    getLastIndexAndMessageIDCollabStatus, checkCollabMember, checkCollabMemberBlacklist
 
 
 @bot.on_callback_query(CallbackButtonDataFilter("DELETE_LINE"))
 async def deleteLine(_, query):
     sub_id = query.data.split("|")[1]
     delete_index = int(query.data.split("|")[2])
-    message_id = await getLastMessageID(sub_id)
+    # message_id = await getLastMessageID(sub_id)
+    indexx, message_id, collab_status = await getLastIndexAndMessageIDCollabStatus(sub_id)
+    if collab_status:
+        if not await checkCollabMember(sub_id, query.from_user.id):
+            await query.answer("⛔️️ You are not authorized to edit this subtitle.", show_alert=True)
+            return
+        if await checkCollabMemberBlacklist(sub_id, query.from_user.id):
+            await query.answer("⛔️️️ You are on the blacklist for this subtitle.", show_alert=True)
+            return
     await bot.edit_message_text(
         chat_id=query.from_user.id,
         message_id=message_id,
