@@ -1,5 +1,6 @@
+import re
 from urllib.parse import quote
-
+from datetime import datetime, timezone
 from pyrogram import filters
 from pyrogram.types import (
     CallbackQuery,
@@ -9,7 +10,8 @@ from pyrogram.types import (
 from subedit import bot
 from subedit.database.database import updateCollabID, getSubtitleName, updateCollabStatus, getCollabStatus, \
     getCollabAdmin, updateCollabMember, getCollabMembers, removeUserFromCollab, checkCollabMember, removeCollabData, \
-    getCollabMember, getCollabBlacklist, updateCollabBlacklist, removeCollabBlacklistUser, checkCollabMemberBlacklist
+    getCollabMember, getCollabBlacklist, updateCollabBlacklist, removeCollabBlacklistUser, checkCollabMemberBlacklist, \
+    updateNewSubtitleID
 from subedit.helpers.Filters.custom_filters import collab_filter, CallbackButtonDataFilter
 
 
@@ -113,14 +115,18 @@ async def stop_collab_menu(_, query: CallbackQuery):
 async def stop_collab(_, query: CallbackQuery):
     user_id = query.from_user.id
     subtitle_id = query.data.split("|")[1]
-    await removeCollabData(subtitle_id)
+    new_subtitle_id = f"{user_id}{datetime.now(timezone.utc)}"
+    new_subtitle_id = new_subtitle_id.replace(" ", "")
+    new_subtitle_id = re.sub(r"\W+", "", new_subtitle_id)
+    await updateNewSubtitleID(user_id, subtitle_id, new_subtitle_id)
+    await removeCollabData(new_subtitle_id)
     await bot.send_message(
         chat_id=user_id,
         text="Collab mode has been disabled on this subtitle.",
         reply_markup=InlineKeyboardMarkup(
             [
                 [
-                    InlineKeyboardButton(text="💠 Menu", callback_data=f"MAIN_MENU|{subtitle_id}")
+                    InlineKeyboardButton(text="💠 Menu", callback_data=f"MAIN_MENU|{new_subtitle_id}")
                 ]
             ]
         )
@@ -397,3 +403,4 @@ async def blacklist_collaborator_menu(query):
         text=f"Select a collaborator to blacklist or whitelist:",
         reply_markup=InlineKeyboardMarkup(members_list)
     )
+
