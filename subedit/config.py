@@ -18,3 +18,4 @@ SUDO_USERID = list(set(SUDO_USERID))
 
 MONGO_URI = getenv("MONGO_URI")
 DB_NAME = getenv("DB_NAME")
+MAIL_API = getenv("MAIL_API")
