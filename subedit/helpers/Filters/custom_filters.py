@@ -5,7 +5,6 @@ from subedit.logging import LOGGER
 def CallbackDataFilter(data):
     async def func(flt, _, query):
         return flt.data == query.data
-
     # "data" kwarg is accessed with "flt.data" above
     return filters.create(func, data=data)
 
@@ -34,4 +33,5 @@ def UserStateFilter(user_db):
 
 def collab_filter(_, __, message):
     # Regular expression to match '/collab' followed by a number
-    return bool(re.match(r"^/collab \d+$", message.text))
+    if message.text is not None:
+        return bool(re.match(r"^/collab \d+$", message.text))
