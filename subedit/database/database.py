@@ -103,6 +103,14 @@ async def getSubtitleID(user_id):
     """
     return await db.get_sub_id(user_id)
 
+
+async def updateNewSubtitleID(user_id, subtitle_id, new_subtitle_id):
+    """
+    Update the user's sub_id.
+    """
+    await db.update_subtitle_id(user_id, subtitle_id, new_subtitle_id)
+
+
 async def getSubtitleName(subtitle_id):
     return await db.get_sub_name(subtitle_id)
 

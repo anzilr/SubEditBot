@@ -223,6 +223,21 @@ class MongoDB:
         )
         return document is not None
 
+    async def update_subtitle_id(self, user_id, subtitle_id, new_subtitle_id):
+        sub_document = await self.read_subtitle(subtitle_id)
+        if sub_document:
+            sub_document.pop("_id")
+            sub_document["_id"] = new_subtitle_id
+            result1 = await self.create_subtitle(sub_document)
+            await self.delete_subtitle(subtitle_id)
+
+        result2 = await self.users_collection.update_one(
+            {"_id": user_id, "subtitles.id": subtitle_id},
+            {"$set": {"subtitles.$.id": new_subtitle_id}}
+        )
+        return result2.modified_count > 0
+
+
     async def update_last_edited_line(self, subtitle_id, index):
         result = await self.subtitles_collection.update_one(
             {"_id": subtitle_id}, {"$set": {"last_edited_line": index}}
